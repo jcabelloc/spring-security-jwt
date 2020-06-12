@@ -6,8 +6,8 @@ Tener una prueba de concepto basica de Spring Security con JWTs
 ## Referencias
 * [Spring Boot + Spring Security + JWT from scratch - Java Brains](https://www.youtube.com/watch?v=X80nJ5T7YpE)
 * [Java JWT: JSON Web Token for Java and Android](https://github.com/jwtk/jjwt)
-* [Spring Security - Authentication] (https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication)
-* [Spring Boot Security + JWT ''Hello World'' Example] (https://dzone.com/articles/spring-boot-security-json-web-tokenjwt-hello-world)
+* [Spring Security - Authentication](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication)
+* [Spring Boot Security + JWT ''Hello World'' Example](https://dzone.com/articles/spring-boot-security-json-web-tokenjwt-hello-world)
 
 ## Entorno
 * Proyecto usando Spring boot Initializer
