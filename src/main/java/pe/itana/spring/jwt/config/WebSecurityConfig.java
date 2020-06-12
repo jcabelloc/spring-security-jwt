@@ -13,6 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import pe.itana.spring.jwt.filter.JwtRequestFilter;
 import pe.itana.spring.jwt.service.MyUserDetailsService;
@@ -57,15 +59,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests().antMatchers("/authenticate").permitAll().
 						anyRequest().authenticated().and().httpBasic();
 		*/
-		http.csrf().disable()
+		http.cors().and().csrf().disable()
 			.authorizeRequests().antMatchers("/authenticate").permitAll().
 				anyRequest().authenticated().and().exceptionHandling().and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 	
-	
-	
-	
+    @Bean
+    public WebMvcConfigurer corsConfigurer() 
+    {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+            	registry.addMapping("/**")
+            		.allowedOrigins("http://localhost:4200")
+                	.allowedMethods("GET", "POST", "PUT","DELETE")
+            		.allowCredentials(true);
+            }
+        };
+    }
 	
 }

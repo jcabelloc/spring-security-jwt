@@ -11,17 +11,21 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import pe.itana.spring.jwt.dto.AuthenticationRequest;
 import pe.itana.spring.jwt.dto.AuthenticationResponse;
+import pe.itana.spring.jwt.dto.User;
 import pe.itana.spring.jwt.service.JwtUtilService;
 import pe.itana.spring.jwt.service.MyUserDetailsService;
 
 @RestController
+@RequestMapping("")
 public class DemoRest {
 	
 	@Autowired
@@ -58,6 +62,11 @@ public class DemoRest {
 		return "Hello World";
 	}
 	
+	@GetMapping("/user")
+	public User getuser() {
+		return new User("usuarioprueba", "Juan", "Cabello", "");
+	}
+	
 	@PostMapping("/authenticate")
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
 
@@ -75,8 +84,10 @@ public class DemoRest {
 				.loadUserByUsername(authenticationRequest.getUsername());
 
 		final String jwt = jwtUtilService.generateToken(userDetails);
-
-		return ResponseEntity.ok(new AuthenticationResponse(jwt));
+		
+		//return ResponseEntity.ok(new AuthenticationResponse(jwt));
+		
+		return ResponseEntity.ok(new User(userDetails.getUsername(), "Juan", "Cabello", jwt));
 	}
 
 }
