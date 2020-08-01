@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +16,14 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Service
 public class JwtUtilService {
 	
+	/*
+	@Value("${jwt.secret.key}")
+	private String jwtSecretKey;
+	*/
+	
 	private String SECRET_KEY = "secret";
 	
-	public static final long JWT_TOKEN_VALIDITY = 1000 * 60 * 60 * 8;
+	public static final long JWT_TOKEN_VALIDITY = 1000 * 60 * 60 * 24 ;  // 8 HORAS
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
